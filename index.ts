@@ -1,23 +1,28 @@
 console.clear()
+import dotenv from "dotenv"
+dotenv.config()
+import { env } from "process"
+
 import express from "express"
 import signup from "./routes/signup"
 import errorHandler from "./middlewares/errorHandler"
 import notFound from "./routes/notFound"
+import mongoose from "mongoose"
 // import login from "./routes/login"
 
 const app = express()
 
-// => Signup Route
-app.use("/v1", signup)
+app.use("/signup", signup) // => Signup Route
+// app.use("/login", login)// => Login Route
+app.use(notFound) // ! Not Found Route
+app.use(errorHandler) // ! Error handling
 
-// => Login Route
-// app.use("/login", login)
-
-// ! Not Found Route
-app.use(notFound)
-// ! Error handling
-app.use(errorHandler)
-
-app.listen(5000, () => {
-  console.log(`Server is listening on http://localhost:5000/`)
+app.listen(process.env.PORT, () => {
+  console.log(`Server is listening on http://localhost:${process.env.PORT}/`)
 })
+// => Database Connection
+const DB = process.env.DB ? process.env.DB : ""
+mongoose
+  .connect(DB)
+  .then(() => console.log("Database has been connected successfully"))
+  .catch((err) => console.log(err))
