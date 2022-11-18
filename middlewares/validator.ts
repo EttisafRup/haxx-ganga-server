@@ -49,11 +49,11 @@ export const filterFields = [
 export const checkErrors = (req: Request, res: any, next: any) => {
   const errors = validationResult(req)
   const decoratedErrors = errors.mapped()
-  if (Object.keys(decoratedErrors).length === 0) {
-    console.log("DecoratedErrors is Empty!")
+  if (Object.keys(decoratedErrors).length === 0 || req.body.length === 1) {
     next()
   } else {
     console.log("BALER ERRORS")
+    console.log(decoratedErrors)
     res.json({ status: 400, err: decoratedErrors })
   }
 }

@@ -12,6 +12,9 @@ import mongoose from "mongoose"
 
 const app = express()
 
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
 app.use("/signup", signup) // => Signup Route
 // app.use("/login", login)// => Login Route
 app.use(notFound) // ! Not Found Route
