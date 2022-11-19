@@ -13,7 +13,7 @@ import cors from "cors"
 // import login from "./routes/login"
 
 const app = express()
-app.use(cors({ origin: process.env.WHITELIST }))
+app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
