@@ -8,10 +8,13 @@ import signup from "./routes/signup"
 import errorHandler from "./middlewares/errorHandler"
 import notFound from "./routes/notFound"
 import mongoose from "mongoose"
+import cors from "cors"
+
 // import login from "./routes/login"
+const whiteList = ["https://haxxganga.netlify.app/", "http://localhost:3000/"]
 
 const app = express()
-
+app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
