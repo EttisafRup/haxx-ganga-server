@@ -27,7 +27,7 @@ const addUser = async (req: any, res: any) => {
     await newUser.save()
     res.json({
       status: 200,
-      message: "User successfully added",
+      message: "Signup was Successful!",
     })
   } catch (err: any) {
     console.log("PATH ERRORSs")
