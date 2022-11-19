@@ -11,10 +11,9 @@ import mongoose from "mongoose"
 import cors from "cors"
 
 // import login from "./routes/login"
-const whiteList = ["https://haxxganga.netlify.app/", "http://localhost:3000/"]
 
 const app = express()
-app.use(cors())
+app.use(cors({ origin: process.env.WHITELIST }))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 

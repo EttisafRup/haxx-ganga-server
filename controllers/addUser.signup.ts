@@ -6,14 +6,14 @@ import bcrypt from "bcrypt"
 const addUser = async (req: any, res: any) => {
   let newUser
   let hashedPassword
-  if (typeof req.body === "object") {
-    hashedPassword = await bcrypt.hash(req.body[0].mobile, 10)
+  if (res.type === "json") {
+    hashedPassword = await bcrypt.hash(req.body[0].password, 10)
     newUser = new User({
       ...req.body[0],
       password: hashedPassword,
     })
   } else {
-    hashedPassword = await bcrypt.hash(req.body.mobile, 10)
+    hashedPassword = await bcrypt.hash(req.body.password, 10)
     newUser = new User({
       ...req.body,
       password: hashedPassword,
