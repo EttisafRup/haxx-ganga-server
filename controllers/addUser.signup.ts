@@ -1,5 +1,3 @@
-import createHttpError from "http-errors"
-import mongoose from "mongoose"
 import User from "../models/user.Schema"
 import bcrypt from "bcrypt"
 import nodemailer from "nodemailer"
@@ -12,12 +10,6 @@ const userOTP = otpgenerator.generate(6, {
   upperCaseAlphabets: false,
   specialChars: false,
 })
-
-const jsonMessage = {
-  signupSuccess: { status: 200, message: "Signup was successful" },
-  emailSuccess: { success: "Email was sent!" },
-  serversideError: { err: "Something Went Wrong" },
-}
 
 export const addUser = async (req: any, res: any) => {
   const mailSetup = [
@@ -32,7 +24,28 @@ export const addUser = async (req: any, res: any) => {
       from: `${process.env.MAILSENDER}`,
       to: `${req.body.email}`,
       subject: `Verification Mail - haxxGanga`,
-      text: `${userOTP}`,
+      html: ` <div style="
+      text-align: center;
+      letter-spacing: 0.3rem;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+      
+  </div>
+  
+  <label style="
+  font-weight: bolder;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  "> As Salamu Alaikum,
+  </label>
+  <p>Thanks for reaching out to us! Welcome to <b>haxxGanga - Your Hack Assistant!</b> Your Verification Code is :</p>
+  
+  <label style="
+  font-size: 3rem;
+  letter-spacing: 1rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  justify-content: center;
+  display: flex;
+  "> ${userOTP} </label>`,
     },
   ]
   const transporter = nodemailer.createTransport(mailSetup[0])
@@ -64,7 +77,7 @@ export const addUser = async (req: any, res: any) => {
           console.log(error)
         } else {
           console.log("Email sent: " + info.response)
-          res.json({ ...jsonMessage.emailSuccess })
+          res.json({ success: "Email was sent!" })
         }
       }
     )
@@ -82,16 +95,16 @@ export const verifyUser = async (req: any, res: any) => {
     if (Array.isArray(req.body) && userOTP === req.body[0].otp) {
       console.log("HI")
       await saveUser.save()
-      res.json({ ...jsonMessage.signupSuccess })
+      res.json({ status: 200, message: "Signup was successful" })
     } else if (Object.keys(req.body).length >= 0 && userOTP === req.body.otp) {
       console.log("HELLO")
       await saveUser.save()
-      res.json({ ...jsonMessage.signupSuccess })
+      res.json({ status: 200, message: "Signup was successful" })
     } else {
       res.json({ XD: "XDDDD" })
     }
   } catch (err) {
-    res.json({ ...jsonMessage.serversideError })
+    res.json({ err: "Something Went Wrong" })
     console.log(err)
   }
 }
