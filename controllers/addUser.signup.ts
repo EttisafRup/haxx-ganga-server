@@ -30,6 +30,7 @@ export const addUser = async (req: any, res: any) => {
       font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
       
   </div>
+  <h1>ha<span style="color: red">x</span>xGanga - Your Hack Assistant!</h1>
   
   <label style="
   font-weight: bolder;
