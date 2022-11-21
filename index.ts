@@ -9,6 +9,7 @@ import errorHandler from "./middlewares/errorHandler"
 import notFound from "./routes/notFound"
 import mongoose from "mongoose"
 import cors from "cors"
+import toolsController from "./controllers/toolsController"
 
 // import login from "./routes/login"
 
@@ -17,6 +18,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+app.use("/tools", toolsController) // => Tools Data
 app.use("/signup", signup) // => Signup Route
 // app.use("/login", login)// => Login Route
 app.use(notFound) // ! Not Found Route
