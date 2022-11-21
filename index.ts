@@ -10,6 +10,7 @@ import notFound from "./routes/notFound"
 import mongoose from "mongoose"
 import cors from "cors"
 import toolsController from "./controllers/toolsController"
+import showUsersController from "./controllers/showUsersController"
 
 // import login from "./routes/login"
 
@@ -18,9 +19,13 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.use("/tools", toolsController) // => Tools Data
+// -> User Routes
 app.use("/signup", signup) // => Signup Route
 // app.use("/login", login)// => Login Route
+
+// -> Common Routes
+app.use("/tools", toolsController) // => Tools Data
+app.use("/users", showUsersController) // => Get Users Data
 app.use(notFound) // ! Not Found Route
 app.use(errorHandler) // ! Error handling
 
