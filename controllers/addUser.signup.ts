@@ -91,7 +91,7 @@ export const addUser = async (req: any, res: any) => {
 }
 
 export const verifyUser = async (req: any, res: any) => {
-  const avatarUser = newUser.username.replace(/\s/g, "")
+  const avatarUser = newUser.username.split(" ").join("")
   const saveUser = new User({
     ...newUser,
     avatar: `https://avatars.githubusercontent.com/${avatarUser}`,
