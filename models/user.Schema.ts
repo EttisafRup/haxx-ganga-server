@@ -2,6 +2,10 @@ import mongoose from "mongoose"
 
 const UserSchema = new mongoose.Schema(
   {
+    avatar: {
+      type: String,
+      required: true,
+    },
     username: {
       type: String,
       required: true,
@@ -12,6 +16,11 @@ const UserSchema = new mongoose.Schema(
     },
     mobile: {
       type: String,
+      required: true,
+    },
+    gender: {
+      type: String,
+      enum: ["male", "female"],
       required: true,
     },
     password: {

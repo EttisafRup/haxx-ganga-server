@@ -90,7 +90,10 @@ export const addUser = async (req: any, res: any) => {
 }
 
 export const verifyUser = async (req: any, res: any) => {
-  const saveUser = new User({ ...newUser })
+  const saveUser = new User({
+    ...newUser,
+    avatar: `https://avatars.githubusercontent.com/${newUser.username}`,
+  })
   try {
     console.log(req.body)
     if (Array.isArray(req.body) && userOTP === req.body[0].otp) {
