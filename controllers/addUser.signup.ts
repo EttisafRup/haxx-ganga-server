@@ -71,6 +71,7 @@ export const addUser = async (req: any, res: any) => {
   }
 
   try {
+    console.log({ ...newUser })
     transporter.sendMail(
       mailOptions,
       function (error: any, info: { response: string }) {
@@ -90,17 +91,23 @@ export const addUser = async (req: any, res: any) => {
 }
 
 export const verifyUser = async (req: any, res: any) => {
+  const avatarUser = newUser.username.replace(/\s/g, "")
   const saveUser = new User({
     ...newUser,
-    avatar: `https://avatars.githubusercontent.com/${newUser.username}`,
+    avatar: `https://avatars.githubusercontent.com/${avatarUser}`,
   })
   try {
-    console.log(req.body)
-    if (Array.isArray(req.body) && userOTP === req.body[0].otp) {
+    if (
+      Array.isArray(req.body) &&
+      userOTP === req.body[0].otp.replace(/\s/g, "")
+    ) {
       console.log("HI")
       await saveUser.save()
       res.json({ status: 200, message: "Signup was successful" })
-    } else if (Object.keys(req.body).length >= 0 && userOTP === req.body.otp) {
+    } else if (
+      Object.keys(req.body).length >= 0 &&
+      userOTP === req.body.otp.replace(/\s/g, "")
+    ) {
       console.log("HELLO")
       await saveUser.save()
       res.json({ status: 200, message: "Signup was successful" })

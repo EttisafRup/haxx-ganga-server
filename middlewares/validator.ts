@@ -9,8 +9,8 @@ export const filterFields = [
     .withMessage("Your name must contain alphabets among 1 to 20!")
     .isAlpha("en-US", { ignore: " */$-~!+=_()[]{}" })
     .withMessage("Your name should not contain special characters!")
-    .trim()
-    .replace(/\s*/g, ""),
+    .replace(/\s/g, "")
+    .trim(),
 
   check("email")
     .isEmail()
