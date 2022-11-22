@@ -4,13 +4,14 @@ dotenv.config()
 import { env } from "process"
 
 import express from "express"
-import signup from "./routes/signup"
+import signupRouteController from "./routes/signup"
 import errorHandler from "./middlewares/errorHandler"
 import notFound from "./routes/notFound"
 import mongoose from "mongoose"
 import cors from "cors"
 import toolsController from "./controllers/toolsController"
 import showUsersController from "./controllers/showUsersController"
+import loginRouteController from "./controllers/logUser.login"
 
 // import login from "./routes/login"
 
@@ -20,8 +21,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 // -> User Routes
-app.use("/signup", signup) // => Signup Route
-// app.use("/login", login)// => Login Route
+app.use("/signup", signupRouteController) // => Signup Route
+app.use("/login", loginRouteController) // => Login Route
 
 // -> Common Routes
 app.use("/tools", toolsController) // => Tools Data
