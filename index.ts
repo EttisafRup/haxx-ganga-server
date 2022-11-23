@@ -12,10 +12,15 @@ import cors from "cors"
 import toolsController from "./controllers/toolsController"
 import showUsersController from "./controllers/showUsersController"
 import loginRouteController from "./controllers/logUser.login"
-
-// import login from "./routes/login"
+import cookieParser from "cookie-parser"
 
 const app = express()
+app.use(
+  cookieParser(
+    process.env.COOKIE_SECRET || "tumi_amar_nou_to_sukh_tumi_sukher_bedonaaa"
+  )
+)
+
 app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
