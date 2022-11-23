@@ -3,3 +3,5 @@ import logUserController from "../controllers/logUser.login"
 const loginRouter = express.Router()
 
 loginRouter.post("/", logUserController)
+
+export default loginRouter
