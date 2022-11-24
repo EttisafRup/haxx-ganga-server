@@ -13,14 +13,8 @@ import notFound from "./routes/notFound"
 import mongoose from "mongoose"
 import cors from "cors"
 
-import cookieParser from "cookie-parser"
 
 const app = express()
-app.use(
-  cookieParser(
-    process.env.COOKIE_SECRET || "tumi_amar_nou_to_sukh_tumi_sukher_bedonaaa"
-  )
-)
 
 app.use(cors())
 app.use(express.urlencoded({ extended: true }))
