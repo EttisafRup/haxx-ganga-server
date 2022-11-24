@@ -4,26 +4,27 @@ import bcrypt from "bcrypt"
 const loginRouteController = async (req: any, res: any) => {
   try {
     const checkUser = await User.findOne({ email: req.body.email })
-    if (checkUser) {
-      const isValidPassword = await bcrypt.compare(
-        req.body.password,
-        checkUser.password
+    const isValidPassword = await bcrypt.compare(
+      req.body.password,
+      checkUser!.password
+    )
+    if (checkUser && isValidPassword) {
+      const JWTToken = jwt.sign(
+        { username: checkUser.username, email: checkUser.email },
+        process.env.JWT_TOKEN!
       )
-      if (checkUser && isValidPassword) {
-        const JWTToken = jwt.sign(
-          { username: checkUser.username, email: checkUser.email },
-          process.env.JWT_TOKEN!
-        )
-        res.json({
-          tokenStatus: "SUCCESS!",
-          success: "Token has been successfully set!",
-          token: JWTToken,
-        })
-      }
+      res.json({
+        tokenStatus: "SUCCESS!",
+        success: "Token has been successfully set!",
+        token: JWTToken,
+      })
     }
   } catch (err) {
     console.log(err)
-    res.json({ err: "Something went wrong on the serverside!" })
+    res.json({
+      err: "Something went wrong on the serverside!",
+      msg: "Email or Password might be invalid!",
+    })
   }
 }
 
