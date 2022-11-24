@@ -12,7 +12,8 @@ import errorHandler from "./middlewares/errorHandler"
 import notFound from "./routes/notFound"
 import mongoose from "mongoose"
 import cors from "cors"
-
+// => JWT Guard
+import checkJWT from "./middlewares/auth/checkJWT"
 
 const app = express()
 
@@ -21,8 +22,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 // -> User Routes
-app.use("/signup", signupRoute) // => Signup Route
-app.use("/login", loginRoute) // => Login Route
+app.use("/signup", checkJWT, signupRoute) // => Signup Route
+app.use("/login", checkJWT, loginRoute) // => Login Route
 
 // -> Common Routes
 app.use("/tools", toolsRoute) // => Tools Data
