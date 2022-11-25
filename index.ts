@@ -22,8 +22,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 // -> User Routes
-app.use("/signup", checkJWT, signupRoute) // => Signup Route
-app.use("/login", checkJWT, loginRoute) // => Login Route
+app.use("/signup", signupRoute) // => Signup Route
+app.use("/login", loginRoute) // => Login Route
+app.use("/verifyjwt", checkJWT) // => Login Route
 
 // -> Common Routes
 app.use("/tools", toolsRoute) // => Tools Data

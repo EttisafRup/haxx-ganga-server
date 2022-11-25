@@ -1,16 +1,11 @@
-function errorHandler(
-  err: any,
-  req: any,
-  res: { json: (arg0: { status: string; message: string }) => void },
-  next: () => void
-) {
+function errorHandler(err: any, req: any, res: any) {
   if (err) {
-    res.json({
+    res.status(400).json({
       status: "Bad Request!",
       message: "Something Went Wrong in the Serverside",
     })
   } else {
-    next()
+    res.disconnect()
   }
 }
 

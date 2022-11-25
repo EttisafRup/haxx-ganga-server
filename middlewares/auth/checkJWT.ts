@@ -1,9 +1,11 @@
 import jwt from "jsonwebtoken"
 
-const checkJWT = (req: any, res: any, next: any) => {
+const checkJWT = (req: any, res: any) => {
   const { auth } = req.headers
   if (!auth) {
-    next()
+    res.json({
+      auth: "Cannot find headers 'Auth', make sure you've sent it correctly!",
+    })
   } else {
     console.log("AUTH", auth)
     try {
