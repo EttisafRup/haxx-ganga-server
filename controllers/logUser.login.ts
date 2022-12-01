@@ -2,15 +2,16 @@ import User from "../models/user.Schema"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 const loginRouteController = async (req: any, res: any) => {
-  if (req.body.password === "" || req.body.email === "") {
-    res.status(400).json({ err: "Email or Password received empty!" })
-  }
   try {
-    const checkUser = await User.findOne({ email: req.body.email })
-    const isValidPassword = await bcrypt.compare(
-      req.body.password,
-      checkUser!.password
-    )
+    const { email, password } = req.body
+    const checkUser = await User.findOne({ email })
+
+    if (email === null) {
+      res.status(400).json({ err: "Email or Password received empty!" })
+    }
+
+    console.log("myUser", checkUser)
+    const isValidPassword = await bcrypt.compare(password, checkUser.password)
     if (checkUser && isValidPassword) {
       const JWTToken = jwt.sign(
         { username: checkUser.username, email: checkUser.email },
